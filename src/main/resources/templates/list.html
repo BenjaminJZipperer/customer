@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optionales Theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Das neueste kompilierte und minimierte JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style>
+
+</style>
+
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container">
+<div class="row">
+    <div class="col-sm">
+    test AB </br>
+    test CD
+    </div>
+    <div class="col-sm">
+     		<div th:switch="${customers}">
+    		<h2 th:case="null">Noch keine Kunden angelegt!</h2>
+        	<div th:case="*">
+            <h2>Nutzer</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Bearbeiten</th>
+                        <th>Löschen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : $[customers}">
+                    <td th:text="${customer.name}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${user.id})}">Bearbeiten</a></td>
+                    <td><a th:href="@{/delete/{id}(id=${user.id})}">Löschen</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+    <p><a href="/signup">Neuen Kunden anlegen</a></p>
+
+	</div>
+    </div>
+    <div class="col-sm">
+     	test AB </br>
+    test CD
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1 @@
+http://learningprogramming.net/java/spring-boot/use-custom-query-with-spring-data-jpa-in-spring-boot/

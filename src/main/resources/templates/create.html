@@ -1,0 +1,13 @@
+<form th:action="@{/users/register}" th:object="${customer}" class="form-signin" method="POST">
+    <h2 class="form-signin-heading">Neun Kunden Anlegen</h2>
+    <input type="hidden"  />
+    <label for="inputUsername" class="sr-only">Username*</label>
+    <input type="text" th:field="*{username}" name="username" id="inputUsername" class="form-control" placeholder="Username" required="required" autofocus="autofocus" />
+    <label for="inputEmail" class="sr-only">Email Adresse*</label>
+    <input type="text" th:field="" name="email" id="inputEmail" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" />
+    <label for="inputPassword" class="sr-only">Passwort</label>
+    <input type="password" th:field="" name="password" id="inputPassword" class="form-control" placeholder="Password" required="required" />
+    <label for="inputConfirmPassword" class="sr-only">Passwort bestätigen</label>
+    <input type="password" th:field="${confirmPassword}" name="confirmPassword" id="inputConfirmPassword" class="form-control" placeholder="Confirm password" required="required" />
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Registrieren</button>
+</form>

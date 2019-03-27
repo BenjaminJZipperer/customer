@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div { border: 1px solid #CCC; }
+.fulltext p,
+.less {
+	display: none;
+}
+
+.fulltext:target p,
+.fulltext:target .less {
+	display: block;
+}
+
+.fulltext:target .more {
+	display: none;
+}
+
+</style>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+<!-- Optionales Theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+<!-- Das neueste kompilierte und minimierte JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+//cut the mustard
+if ('querySelector' in document && 
+	'addEventListener' in window) {
+
+	var toggleButtons = document.querySelectorAll('.toggle-content');
+	var fullTextWrappers = document.querySelectorAll('.fulltext');
+	var fullText;
+	var toggleButtonText;
+	
+
+	[].forEach.call(fullTextWrappers, function(fullTextWrapper) {
+		// hide all full text on load
+		fullTextWrapper.setAttribute('hidden', true);
+	});
+
+	[].forEach.call(toggleButtons, function(toggleButton) {
+		// show toggle more buttons
+		toggleButton.removeAttribute('hidden');
+
+		// add listener for each button
+		toggleButton.addEventListener('click', function () {
+
+			fullTextWrapper = this.parentElement.querySelector('.fulltext');
+			toggleButtonText = this.querySelector('.text');
+
+			// change attributes and text if full text is shown/hidden
+			if (!fullTextWrapper.hasAttribute('hidden')) {
+				toggleButtonText.innerText = 'Show More';
+				fullTextWrapper.setAttribute('hidden', true);
+				toggleButton.setAttribute('aria-expanded', false);
+			} else {
+				toggleButtonText.innerText = 'Show Less';
+				fullTextWrapper.removeAttribute('hidden');
+				toggleButton.setAttribute('aria-expanded', true);
+			}
+		});
+	});
+}
+</script>
+</head>
+<body>
+	<div align="right">
+	Systemzeit: <span th:text="${serverTime}" />
+		
+	</div>
+	<form th:object="${customer}" th:action="@{/customers}" method="get">
+       <b>Suche nach Nutzer (Suchbegriff: Name, Email)</b> 
+       <input type="text" name="search" id="search" th:value="${search}"/>
+		
+	</form>
+	
+	<div th:switch="${customers}">
+    <h2 th:case="null">Noch keine Kunden im Datenstamm angelegt!</h2>
+        <div th:case="*">
+            <h2>Nutzer</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:120px" align="left">Name</th>
+                        <th style="width:255px" align="left">Email</th>
+                        <th style="width:120px" align="left">Passwort</th> <!-- Jupiter Jones s -->
+                        <th style="width:120px" align="left">Bearbeiten |</th>
+                        <th style="width:120px" align="left">L&ouml;schen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user : ${customers}">
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td th:text="${user.password}"></td>
+                    <td><a th:href="@{/edit/{id}(id=${user.id})}">Bearbeiten</a>|</td> 
+                    <td><a th:href="@{/delete/{id}(id=${user.id})}">Entfernen</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>      
+    <br/>
+    <!--  type transformation of href link anchor to Botstrap  -->
+    <p><a class="btn btn-primary" role="button" href="/signup">Neuen Kunden Anlegen</a></p><br/>
+    <p><button aria-expanded="false" aria-controls="more-1" 
+    class="toggle-content" hidden><span class="text">
+    Show More</span> 
+    <span class="visually-hidden">about Headline</span></button></p>
+    <h2>About this Project</h2>
+	<p>Sincersly, I dont know when I started to do Frontend developing...</p>
+	<div id="more-1" class="fulltext">
+		<p>For the last 10 years I covered a lot of fields; teacher, automotive, series of <br/>
+		companies. Then I discovered the value of sitting in a specific project. </p>
+		
+	</div>
+</div>
+</body>
+</html>
+

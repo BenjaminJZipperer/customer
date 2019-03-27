@@ -1,0 +1,32 @@
+
+    <div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Go To Mainpage</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li th:classappend="${module == 'home' ? 'active' : ''}">
+              <a href="#" th:href="@{/}">Home</a>
+            </li>
+            <li th:classappend="${module == 'tasks' ? 'active' : ''}">
+              <a href="#" th:href="@{/tasks}">Tasks</a>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li>
+              <a href="/signin" th:href="@{/signin}">
+              </li>
+              <li>
+              <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
